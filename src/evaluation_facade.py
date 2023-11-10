@@ -28,7 +28,7 @@ def get_prompting(prompting: Prompting):
         case Prompting.null_shot:
             return NullShot
         case Prompting.chain_of_thought:
-            raise ChainOfThought
+            return ChainOfThought
         case Prompting.zero_shot_chain_of_thought:
             return ZeroShotChainOfThought
         case Prompting.null_shot_chain_of_thought:
