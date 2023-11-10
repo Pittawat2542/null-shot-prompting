@@ -1,0 +1,18 @@
+DATASETS_DIRECTORY = 'datasets'
+API_MAX_RETRIES = 3
+API_MAX_TIMEOUT = 30
+RANDOM_SEED = 42
+NUM_FEW_SHOT_SAMPLES = 10
+OPENAI_RATE_LIMIT = 0.6
+PALM_RATE_LIMIT = 1.1
+
+GPT_THREE_POINT_FIVE_TURBO_MODEL = "gpt-3.5-turbo-1106"
+GPT_FOUR_TURBO_MODEL = "gpt-4-1106-preview"
+PALM_TWO_TEXT_MODEL = "text-bison-001"
+PALM_TWO_CHAT_MODEL = "chat-bison-001"
+LLAMA_TWO_SEVEN_MODEL = "meta-llama/Llama-2-7b-hf"
+LLAMA_TWO_THIRTEEN_MODEL = "meta-llama/Llama-2-13b-hf"
+LLAMA_TWO_SEVENTY_MODEL = "meta-llama/Llama-2-70b-hf"
+LLAMA_TWO_CHAT_SEVEN_MODEL = "meta-llama/Llama-2-7b-chat-hf"
+LLAMA_TWO_CHAT_THIRTEEN_MODEL = "meta-llama/Llama-2-13b-chat-hf"
+LLAMA_TWO_CHAT_SEVENTY_MODEL = "meta-llama/Llama-2-70b-chat-hf"
