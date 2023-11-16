@@ -18,6 +18,7 @@ from src.prompting.zero_shot import ZeroShot
 from src.prompting.zero_shot_chain_of_thought import ZeroShotChainOfThought
 from src.tasks.aqua import AQuA
 from src.tasks.commonsense_qa import CommonsenseQA
+from src.tasks.strategyqa import StrategyQA
 
 
 def get_prompting(prompting: Prompting):
@@ -86,5 +87,7 @@ def get_task(task: Tasks):
             return AQuA
         case Tasks.CommonsenseQA:
             return CommonsenseQA
+        case Tasks.StrategyQA:
+            return StrategyQA
         case _:
             raise NotImplementedError(f"Task {task.value} not implemented")
