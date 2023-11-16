@@ -11,7 +11,7 @@ class Task(ABC):
 
     @classmethod
     @abstractmethod
-    def is_cot_samples_supported(cls) -> bool:
+    def has_native_cot_samples_supported(cls) -> bool:
         return False
 
     @classmethod

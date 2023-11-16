@@ -24,7 +24,7 @@ class AQuA(Task, ABC):
         return object.__new__(cls)
 
     @classmethod
-    def is_cot_samples_supported(cls) -> bool:
+    def has_native_cot_samples_supported(cls) -> bool:
         return True
 
     @classmethod

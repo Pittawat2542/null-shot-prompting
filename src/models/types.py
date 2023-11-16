@@ -17,6 +17,7 @@ class LLMs(Enum):
 
 class Tasks(Enum):
     AQuA = "aqua"
+    CommonsenseQA = "csqa"
     all = "all"
 
 
