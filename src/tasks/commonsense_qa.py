@@ -28,33 +28,35 @@ class CommonsenseQA(Task, ABC):
 
     @classmethod
     def get_few_shot_samples(cls) -> list[DataItem]:
+        # From CoT paper
         few_shot_examples = [
             DataItem(
                 "Question: What do people use to absorb extra ink from a fountain pen?\nChoices: A) shirt pocket, B) calligrapher’s hand, C) inkwell, D) desk drawer, E) blotter\nAnswer:",
-                "The answer must be an item that can absorb ink. Of the above choices, only blotters are used to absorb ink.",
+                "The answer must be an item that can absorb ink. Of the above choices, only blotters are used to absorb ink. So, the answer is E.",
                 "E"),
             DataItem(
                 "Question: What home entertainment equipment requires cable?\nChoices: A) radio shack, B) substation, C) television, D) cabinet\nAnswer:",
-                "The answer must require cable. Of the above choices, only television requires cable.", "C"),
+                "The answer must require cable. Of the above choices, only television requires cable. So, the answer is C.",
+                "C"),
             DataItem(
                 "Question: The fox walked from the city into the forest, what was it looking for?\nChoices: A) pretty flowers, B) hen house, C) natural habitat, D) storybook\nAnswer:",
-                "The answer must be something in the forest. Of the above choices, only natural habitat is in the forest.",
+                "The answer must be something in the forest. Of the above choices, only natural habitat is in the forest. So, the answer is B.",
                 "B"),
             DataItem(
                 "Question: Sammy wanted to go to where the people were. Where might he go?\nChoices: A) populated areas, B) race track, C) desert, D) apartment, E) roadblock\nAnswer:",
-                "The answer must be a place with a lot of people. Of the above choices, only populated areas have a lot of people.",
+                "The answer must be a place with a lot of people. Of the above choices, only populated areas have a lot of people. So, the answer is A.",
                 "A"),
             DataItem(
                 "Question: Where do you put your grapes just before checking out?\nChoices: A) mouth, B) grocery cart, C)super market, D) fruit basket, E) fruit market\nAnswer:",
-                "The answer should be the place where grocery items are placed before checking out. Of the above choices, grocery cart makes the most sense for holding grocery items.",
+                "The answer should be the place where grocery items are placed before checking out. Of the above choices, grocery cart makes the most sense for holding grocery items. So, the answer is B.",
                 "B"),
             DataItem(
                 "Question: Google Maps and other highway and street GPS services have replaced what?\nChoices: A) united states, B) mexico, C) countryside, D) atlas\nAnswer:",
-                "The answer must be something that used to do what Google Maps and GPS services do, which is to give directions. Of the above choices, only atlases are used to give directions.",
+                "The answer must be something that used to do what Google Maps and GPS services do, which is to give directions. Of the above choices, only atlases are used to give directions. So, the answer is D.",
                 "D"),
             DataItem(
                 "Question: Before getting a divorce, what did the wife feel who was doing all the work?\nChoices: A) harder, B) anguish, C) bitterness, D) tears, E) sadness\nAnswer:",
-                "The answer should be the feeling of someone getting divorced who was doing all the work. Of the above choices, the closest feeling is bitterness.",
+                "The answer should be the feeling of someone getting divorced who was doing all the work. Of the above choices, the closest feeling is bitterness. So, the answer is C.",
                 "C")
         ]
         return few_shot_examples

@@ -19,6 +19,7 @@ class Tasks(Enum):
     AQuA = "aqua"
     CommonsenseQA = "csqa"
     StrategyQA = "strategyqa"
+    OpenBookQA = "openbookqa"
     all = "all"
 
 
