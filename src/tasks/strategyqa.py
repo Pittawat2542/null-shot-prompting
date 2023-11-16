@@ -58,7 +58,7 @@ class StrategyQA(Task, ABC):
 
     @classmethod
     def evaluate(cls, response: str, answer: str) -> (bool, str):
-        pattern = r"([A-B]\))"
+        pattern = r"([A-B]\))|(False|True)"
         if len(response) == 0:
             logger.debug(f"Could not extract prediction from response as response is empty")
             return False, ""
@@ -78,7 +78,14 @@ class StrategyQA(Task, ABC):
             extracted_answer = None
 
         if extracted_answer is not None:
-            prediction = extracted_answer.group(1)[0]
+            prediction = extracted_answer.group(1) if extracted_answer.group(
+                1) is not None else extracted_answer.group(0)
+            if prediction == "True":
+                prediction = "A"
+            elif prediction == "False":
+                prediction = "B"
+            else:
+                prediction = prediction[0]
             logger.debug(f"Prediction: {prediction}, Answer: {answer}")
             return prediction == answer, prediction
         logger.debug(f"Could not extract prediction from response")

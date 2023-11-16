@@ -13,7 +13,7 @@ class PaLMTwoChat(LLM):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def inference(self, prompt: str) -> str:
+    def inference(self, prompt: str, model_name="") -> str:
         logger.info("Generating response from PaLM 2 Chat")
         start_time = perf_counter()
         chat_completion = palm.chat(prompt=prompt, temperature=0)

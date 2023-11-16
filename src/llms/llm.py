@@ -8,7 +8,7 @@ class LLM(ABC):
         super().__init__(*args, **kwargs)
 
     @abstractmethod
-    def inference(self, prompt: str) -> str:
+    def inference(self, prompt: str, model_name="") -> str:
         return ""
 
     @abstractmethod
