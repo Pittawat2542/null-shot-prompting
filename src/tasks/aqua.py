@@ -29,7 +29,7 @@ class AQuA(Task, ABC):
 
     @classmethod
     def get_few_shot_samples(cls) -> list[DataItem]:
-        dev_list = AQuA.get_task_list(cls.dev_dataset_path)
+        dev_list = cls.get_task_list(cls.dev_dataset_path)
         few_shot_examples = random.sample(dev_list, NUM_FEW_SHOT_SAMPLES)
         return few_shot_examples
 
