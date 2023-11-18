@@ -16,10 +16,13 @@ class LLMs(Enum):
 
 
 class Tasks(Enum):
-    AQuA = "aqua"
+    # Commonsense reasoning
     CommonsenseQA = "csqa"
     StrategyQA = "strategyqa"
     OpenBookQA = "openbookqa"
+    # Arithmetic reasoning
+    AQuA = "aqua"
+    GSM8K = "gsm8k"
     all = "all"
 
 
