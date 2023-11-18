@@ -21,6 +21,7 @@ from src.tasks.commonsense_qa import CommonsenseQA
 from src.tasks.gsm8k import GSM8K
 from src.tasks.open_book_qa import OpenBookQA
 from src.tasks.strategyqa import StrategyQA
+from src.tasks.svamp import SVAMP
 
 
 def get_prompting(prompting: Prompting):
@@ -95,5 +96,7 @@ def get_task(task: Tasks):
             return AQuA
         case Tasks.GSM8K:
             return GSM8K
+        case Tasks.SVAMP:
+            return SVAMP
         case _:
             raise NotImplementedError(f"Task {task.value} not implemented")
