@@ -44,7 +44,7 @@ def get_prompting(prompting: Prompting):
 
 def get_model(model: LLMs, client: Client | Pipeline = None):
     match model:
-        case LLMs.gpt_three_point_five_turbo, LLMs.gpt_four_turbo:
+        case LLMs.gpt_three_point_five_turbo | LLMs.gpt_four_turbo:
             return GPT(client)
         case LLMs.palm_two_text:
             return PaLMTwoText()
