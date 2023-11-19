@@ -15,7 +15,7 @@ class CommonsenseQA(Task, ABC):
     """CommonsenseQA"""
 
     dataset_path = Path(os.getcwd()) / DATASETS_DIRECTORY / 'CommonsenseQA.jsonl'
-    dev_dataset_path = Path(os.getcwd()) / DATASETS_DIRECTORY / 'CommonsenseQA_dev.jsonl'
+    dev_dataset_path = Path(os.getcwd()) / DATASETS_DIRECTORY / 'CommonsenseQA_train.jsonl'
 
     def __new__(cls, *args, **kwargs):
         if cls is CommonsenseQA:

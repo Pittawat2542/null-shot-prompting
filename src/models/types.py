@@ -17,6 +17,10 @@ class LLMs(Enum):
 
 class Tasks(Enum):
     all = "all"
+    # NLI
+    ANLI = "anli"
+    # Winogrande
+    Winogrande = "winogrande"
     # Commonsense reasoning
     CommonsenseQA = "csqa"
     StrategyQA = "strategyqa"

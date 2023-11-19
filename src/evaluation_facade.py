@@ -16,12 +16,14 @@ from src.prompting.null_shot import NullShot
 from src.prompting.null_shot_chain_of_thought import NullShotChainOfThought
 from src.prompting.zero_shot import ZeroShot
 from src.prompting.zero_shot_chain_of_thought import ZeroShotChainOfThought
+from src.tasks.anli import ANLI
 from src.tasks.aqua import AQuA
 from src.tasks.commonsense_qa import CommonsenseQA
 from src.tasks.gsm8k import GSM8K
 from src.tasks.open_book_qa import OpenBookQA
 from src.tasks.strategyqa import StrategyQA
 from src.tasks.svamp import SVAMP
+from src.tasks.winogrande import Winogrande
 
 
 def get_prompting(prompting: Prompting):
@@ -86,6 +88,10 @@ def get_model_name(model: LLMs):
 
 def get_task(task: Tasks):
     match task:
+        case Tasks.ANLI:
+            return ANLI
+        case Tasks.Winogrande:
+            return Winogrande
         case Tasks.CommonsenseQA:
             return CommonsenseQA
         case Tasks.StrategyQA:
