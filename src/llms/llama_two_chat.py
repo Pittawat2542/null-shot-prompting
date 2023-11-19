@@ -13,7 +13,7 @@ class LlamaTwoChat(LLM):
         super().__init__(*args, **kwargs)
         self.client = client
 
-    def inference(self, prompt: str, model_name="") -> str:
+    def inference(self, prompt: str, model_name="") -> (str, dict):
         logger.info(f"Generating response from Llama 2 Chat {model_name}")
         start_time = perf_counter()
         conversation = Conversation(prompt)
@@ -23,7 +23,8 @@ class LlamaTwoChat(LLM):
         logger.success(
             f"Response generated from Llama 2 Chat {model_name}, response length: {len(response)}, "
             f"time taken: {end_time - start_time} seconds")
-        return response
+        return response, {"length": len(response), "time_taken": end_time - start_time, "start_time": start_time,
+                          "end_time": end_time}
 
     def __str__(self) -> str:
         return "Llama 2 Chat"

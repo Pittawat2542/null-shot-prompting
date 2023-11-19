@@ -13,7 +13,7 @@ class PaLMTwoText(LLM):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def inference(self, prompt: str, model_name="") -> str:
+    def inference(self, prompt: str, model_name="") -> (str, dict):
         logger.info("Generating response from PaLM 2 Text")
         start_time = perf_counter()
         chat_completion = palm.generate_text(prompt=prompt, temperature=0)
@@ -28,7 +28,8 @@ class PaLMTwoText(LLM):
             f"time taken: {end_time - start_time} seconds")
         if end_time - start_time < PALM_RATE_LIMIT:
             sleep(PALM_RATE_LIMIT - (end_time - start_time))
-        return response
+        return response, {"length": len(response), "time_taken": end_time - start_time, "start_time": start_time,
+                          "end_time": end_time}
 
     def __str__(self) -> str:
         return "PaLM 2 Text"

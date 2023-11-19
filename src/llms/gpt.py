@@ -14,7 +14,7 @@ class GPT(LLM):
         super().__init__(*args, **kwargs)
         self.client = client
 
-    def inference(self, prompt: str, model_name="") -> str:
+    def inference(self, prompt: str, model_name="") -> (str, dict):
         model = ""
         match model_name:
             case "gpt-3.5-turbo":
@@ -39,7 +39,8 @@ class GPT(LLM):
             f"time taken: {end_time - start_time} seconds")
         if end_time - start_time < OPENAI_RATE_LIMIT:
             sleep(OPENAI_RATE_LIMIT - (end_time - start_time))
-        return response
+        return response, {"length": len(response), "time_taken": end_time - start_time, "start_time": start_time,
+                          "end_time": end_time}
 
     def __str__(self) -> str:
         return "GPT"

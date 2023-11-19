@@ -75,7 +75,7 @@ def run_evaluation(models: Annotated[list[LLMs], typer.Option("--models", "-m", 
             selected_task = get_task(task)
             task_list = selected_task.get_task_list()
             for pe_technique in prompting:
-                logger.info(f"Running {model.value} on {task.value} with {pe_technique.value} prompting.py")
+                logger.info(f"Running {model.value} on {task.value} with {pe_technique.value} prompting")
                 selected_prompting = get_prompting(pe_technique)
 
                 few_shot_samples = ""
@@ -114,7 +114,7 @@ def run_evaluation(models: Annotated[list[LLMs], typer.Option("--models", "-m", 
                     summary_file.write_text(json.dumps(summary))
                     prompt = selected_prompting.get_prompt(item.prompt, examples=few_shot_samples)
                     logger.debug(prompt)
-                    response = llm.inference(prompt, model_name=model.value)
+                    response, metadata = llm.inference(prompt, model_name=model.value)
                     is_correct, extracted_answer = selected_task.evaluate(response, item.label)
 
                     file_path = Path(f"results/{model.value}/{task.value}/{pe_technique.value}/{i}.json")
@@ -124,6 +124,8 @@ def run_evaluation(models: Annotated[list[LLMs], typer.Option("--models", "-m", 
                             {"prompt": prompt, "response": response, "label": item.label, "is_correct": is_correct,
                              "extracted_answer": extracted_answer,
                              "model": model.value, "task": task.value, "pe_technique": pe_technique.value,
+                             "length": metadata['length'], "time_taken": metadata['time_taken'],
+                             "start_time": metadata['start_time'], "end_time": metadata['end_time'],
                              "created_at": datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}))
 
                     if is_correct:
