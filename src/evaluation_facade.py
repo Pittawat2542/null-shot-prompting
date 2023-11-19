@@ -24,6 +24,8 @@ from src.tasks.open_book_qa import OpenBookQA
 from src.tasks.strategyqa import StrategyQA
 from src.tasks.svamp import SVAMP
 from src.tasks.winogrande import Winogrande
+from src.tasks.wmt_news_en_ja import WMTENJA
+from src.tasks.wmt_news_ja_en import WMTJAEN
 
 
 def get_prompting(prompting: Prompting):
@@ -90,6 +92,10 @@ def get_task(task: Tasks):
     match task:
         case Tasks.ANLI:
             return ANLI
+        case Tasks.WMTJAEN:
+            return WMTJAEN
+        case Tasks.WMTENJA:
+            return WMTENJA
         case Tasks.Winogrande:
             return Winogrande
         case Tasks.CommonsenseQA:

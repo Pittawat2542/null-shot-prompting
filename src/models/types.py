@@ -19,6 +19,9 @@ class Tasks(Enum):
     all = "all"
     # NLI
     ANLI = "anli"
+    # Translation
+    WMTJAEN = "wmt-ja-en"
+    WMTENJA = "wmt-en-ja"
     # Winogrande
     Winogrande = "winogrande"
     # Commonsense reasoning
