@@ -21,6 +21,8 @@ from src.tasks.aqua import AQuA
 from src.tasks.commonsense_qa import CommonsenseQA
 from src.tasks.gsm8k import GSM8K
 from src.tasks.open_book_qa import OpenBookQA
+from src.tasks.race_h import RACEHigh
+from src.tasks.race_m import RACEMiddle
 from src.tasks.strategyqa import StrategyQA
 from src.tasks.svamp import SVAMP
 from src.tasks.winogrande import Winogrande
@@ -96,6 +98,10 @@ def get_task(task: Tasks):
             return WMTJAEN
         case Tasks.WMTENJA:
             return WMTENJA
+        case Tasks.RACE_H:
+            return RACEHigh
+        case Tasks.RACE_M:
+            return RACEMiddle
         case Tasks.Winogrande:
             return Winogrande
         case Tasks.CommonsenseQA:

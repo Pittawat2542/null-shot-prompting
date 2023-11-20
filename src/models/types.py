@@ -22,6 +22,9 @@ class Tasks(Enum):
     # Translation
     WMTJAEN = "wmt-ja-en"
     WMTENJA = "wmt-en-ja"
+    # Reading comprehension
+    RACE_H = "race-h"
+    RACE_M = "race-m"
     # Winogrande
     Winogrande = "winogrande"
     # Commonsense reasoning
