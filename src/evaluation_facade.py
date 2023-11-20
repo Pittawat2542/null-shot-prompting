@@ -25,6 +25,7 @@ from src.tasks.race_h import RACEHigh
 from src.tasks.race_m import RACEMiddle
 from src.tasks.strategyqa import StrategyQA
 from src.tasks.svamp import SVAMP
+from src.tasks.triviaqa import TriviaQA
 from src.tasks.winogrande import Winogrande
 from src.tasks.wmt_news_en_ja import WMTENJA
 from src.tasks.wmt_news_ja_en import WMTJAEN
@@ -92,6 +93,8 @@ def get_model_name(model: LLMs):
 
 def get_task(task: Tasks):
     match task:
+        case Tasks.TriviaQA:
+            return TriviaQA
         case Tasks.ANLI:
             return ANLI
         case Tasks.WMTJAEN:

@@ -17,6 +17,8 @@ class LLMs(Enum):
 
 class Tasks(Enum):
     all = "all"
+    # Closed-book QA
+    TriviaQA = "triviaqa"
     # NLI
     ANLI = "anli"
     # Translation
