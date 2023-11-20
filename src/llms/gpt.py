@@ -25,14 +25,18 @@ class GPT(LLM):
                 raise NotImplementedError(f"Model {model_name} not implemented")
         logger.info(f"Generating response from {model_name}")
         start_time = perf_counter()
-        chat_completion = self.client.chat.completions.create(
-            model=model,
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0,
-            seed=RANDOM_SEED,
-        )
-        end_time = perf_counter()
-        response = chat_completion.choices[0].message.content
+        try:
+            chat_completion = self.client.chat.completions.create(
+                model=model,
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0,
+                seed=RANDOM_SEED,
+            )
+            end_time = perf_counter()
+            response = chat_completion.choices[0].message.content
+        except openai.OpenAIError as e:
+            end_time = perf_counter()
+            response = f"ERROR: {e}"
         logger.debug(response)
         logger.success(
             f"Response generated from {model}, response length: {len(response)}, "
