@@ -1,6 +1,7 @@
 from time import perf_counter, sleep
 
 import google.generativeai as palm
+from google.api_core.exceptions import ServiceUnavailable
 from loguru import logger
 
 from src.config import PALM_RATE_LIMIT
@@ -16,7 +17,10 @@ class PaLMTwoChat(LLM):
     def inference(self, prompt: str, model_name="") -> (str, dict):
         logger.info("Generating response from PaLM 2 Chat")
         start_time = perf_counter()
-        chat_completion = palm.chat(prompt=prompt, temperature=0)
+        try:
+            chat_completion = palm.chat(prompt=prompt, temperature=0)
+        except ServiceUnavailable:
+            chat_completion = palm.chat(prompt=prompt, temperature=0)
         end_time = perf_counter()
         response = chat_completion.last
         if response is None:
