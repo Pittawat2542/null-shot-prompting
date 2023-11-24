@@ -34,6 +34,9 @@ class GPT(LLM):
             )
             end_time = perf_counter()
             response = chat_completion.choices[0].message.content
+        except openai.RateLimitError as e:
+            print(e)
+            raise e
         except openai.OpenAIError as e:
             end_time = perf_counter()
             response = f"ERROR: {e}"
