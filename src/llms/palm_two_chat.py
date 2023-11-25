@@ -23,7 +23,7 @@ class PaLMTwoChat(LLM):
             chat_completion = palm.chat(prompt=prompt, temperature=0)
         except InvalidArgument as e:
             if "The requested language is not supported" in str(e):
-                chat_completion = f"ERROR: {e}"
+                chat_completion = {"last": f"ERROR: {e}"}
             else:
                 raise e
         end_time = perf_counter()
