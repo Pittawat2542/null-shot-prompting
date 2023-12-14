@@ -46,4 +46,10 @@ class Prompting(Enum):
     chain_of_thought = "cot"
     zero_shot_chain_of_thought = "zero-shot-cot"
     null_shot_chain_of_thought = "null-shot-cot"
+
+    null_shot_after = "null-shot-after"
+    null_shot_v1 = "null-shot-v1"
+    null_shot_v2 = "null-shot-v2"
+    null_shot_v3 = "null-shot-v3"
+
     all = "all"

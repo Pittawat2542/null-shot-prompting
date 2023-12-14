@@ -13,7 +13,11 @@ from src.models.types import LLMs, Tasks, Prompting
 from src.prompting.chain_of_thought import ChainOfThought
 from src.prompting.few_shot import FewShot
 from src.prompting.null_shot import NullShot
+from src.prompting.null_shot_after import NullShotAfter
 from src.prompting.null_shot_chain_of_thought import NullShotChainOfThought
+from src.prompting.null_shot_v1 import NullShotV1
+from src.prompting.null_shot_v2 import NullShotV2
+from src.prompting.null_shot_v3 import NullShotV3
 from src.prompting.zero_shot import ZeroShot
 from src.prompting.zero_shot_chain_of_thought import ZeroShotChainOfThought
 from src.tasks.anli import ANLI
@@ -45,6 +49,14 @@ def get_prompting(prompting: Prompting):
             return ZeroShotChainOfThought
         case Prompting.null_shot_chain_of_thought:
             return NullShotChainOfThought
+        case Prompting.null_shot_after:
+            return NullShotAfter
+        case Prompting.null_shot_v1:
+            return NullShotV1
+        case Prompting.null_shot_v2:
+            return NullShotV2
+        case Prompting.null_shot_v3:
+            return NullShotV3
         case _:
             raise NotImplementedError(f"Prompting {prompting.value} not implemented")
 
