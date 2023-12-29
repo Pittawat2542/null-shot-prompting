@@ -58,9 +58,9 @@ class WMTJAEN(Task, ABC):
         first_line = lines[0]
         last_line = lines[-1]
 
-        prediction = first_line if first_line == answer else last_line
+        prediction = first_line if answer in first_line else last_line
         logger.debug(f"Prediction: {prediction}, Answer: {answer}")
-        return prediction == answer, prediction
+        return answer in prediction, prediction
 
     def __str__(self) -> str:
         return "WMTJAEN"

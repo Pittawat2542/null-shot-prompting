@@ -52,6 +52,8 @@ class RACEHigh(Task, ABC):
     @classmethod
     def evaluate(cls, response: str, answer: str) -> (bool, str):
         pattern = r"([A-D]\))"
+        secondary_pattern = r"answer is ([A-D])"
+
         if len(response) == 0:
             logger.debug(f"Could not extract prediction from response as response is empty")
             return False, ""
@@ -65,8 +67,12 @@ class RACEHigh(Task, ABC):
         last_line = lines[-1]
         if re.search(pattern, last_line) is not None:
             extracted_answer = re.search(pattern, last_line)
+        elif re.search(secondary_pattern, last_line) is not None:
+            extracted_answer = re.search(secondary_pattern, last_line)
         elif re.search(pattern, first_line) is not None:
             extracted_answer = re.search(pattern, first_line)
+        elif re.search(secondary_pattern, first_line) is not None:
+            extracted_answer = re.search(secondary_pattern, first_line)
         else:
             extracted_answer = None
 

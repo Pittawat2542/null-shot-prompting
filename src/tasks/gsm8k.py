@@ -57,6 +57,8 @@ class GSM8K(Task, ABC):
     @classmethod
     def evaluate(cls, response: str, answer: str) -> (bool, str):
         pattern = r"(\d+)"
+        secondary_pattern = r"answer is (\d+)"
+
         if len(response) == 0:
             logger.debug(f"Could not extract prediction from response as response is empty")
             return False, ""
@@ -66,8 +68,12 @@ class GSM8K(Task, ABC):
         last_line = lines[-1]
         if len(re.findall(pattern, last_line)) > 0:
             prediction = re.findall(pattern, last_line)[-1]
+        elif len(re.findall(secondary_pattern, last_line)) > 0:
+            prediction = re.findall(secondary_pattern, last_line)[-1]
         elif len(re.findall(pattern, first_line)) > 0:
             prediction = re.findall(pattern, first_line)[-1]
+        elif len(re.findall(secondary_pattern, first_line)) > 0:
+            prediction = re.findall(secondary_pattern, first_line)[-1]
         else:
             prediction = None
 
