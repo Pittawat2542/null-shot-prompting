@@ -96,7 +96,7 @@ class Winogrande(Task, ABC):
             logger.debug(f"Could not extract prediction from response as response is empty")
             return False, ""
 
-        if len(response) == 1 and response.isupper():
+        if len(response) == 1:
             logger.debug(f"Prediction: {response}, Answer: {answer}")
             return response == answer, response
 
