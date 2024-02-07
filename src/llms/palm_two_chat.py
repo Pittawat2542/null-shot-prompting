@@ -1,7 +1,7 @@
 from time import perf_counter, sleep
 
 import google.generativeai as palm
-from google.api_core.exceptions import ServiceUnavailable, InvalidArgument
+from google.api_core.exceptions import ServiceUnavailable, InvalidArgument, InternalServerError
 from loguru import logger
 
 from src.config import PALM_RATE_LIMIT
@@ -19,7 +19,7 @@ class PaLMTwoChat(LLM):
         start_time = perf_counter()
         try:
             chat_completion = palm.chat(prompt=prompt, temperature=0)
-        except ServiceUnavailable:
+        except (ServiceUnavailable, InternalServerError):
             chat_completion = palm.chat(prompt=prompt, temperature=0)
         except InvalidArgument as e:
             if "The requested language is not supported" in str(e):

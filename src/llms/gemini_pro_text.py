@@ -1,7 +1,7 @@
 from time import perf_counter, sleep
 
 import google.generativeai as genai
-from google.api_core.exceptions import InvalidArgument, ServiceUnavailable
+from google.api_core.exceptions import InvalidArgument, ServiceUnavailable, InternalServerError
 from loguru import logger
 
 from src.config import GEMINI_RATE_LIMIT
@@ -21,7 +21,7 @@ class GeminiProText(LLM):
         try:
             text_completion = model.generate_content(prompt,
                                                      generation_config=genai.types.GenerationConfig(temperature=0))
-        except ServiceUnavailable:
+        except (ServiceUnavailable, InternalServerError):
             text_completion = model.generate_content(prompt,
                                                      generation_config=genai.types.GenerationConfig(temperature=0))
         except InvalidArgument as e:
