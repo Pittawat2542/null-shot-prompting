@@ -27,14 +27,15 @@ class GeminiProText(LLM):
         except InvalidArgument as e:
             if "The requested language is not supported" in str(e):
                 text_completion = lambda: None
-                text_completion.last = f"ERROR: {e}"
+                text_completion.text = f"ERROR: {e}"
             else:
                 raise e
         end_time = perf_counter()
-        response = text_completion.text
-        if response is None:
+        if len(text_completion.parts) == 0:
             logger.debug("No response generated, returning empty string")
             response = ""
+        else:
+            response = text_completion.text
         logger.debug(response)
         logger.success(
             f"Response generated from Gemini Pro Text, response length: {len(response)}, "

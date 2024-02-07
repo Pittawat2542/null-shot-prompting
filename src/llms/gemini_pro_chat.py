@@ -26,14 +26,15 @@ class GeminiProChat(LLM):
         except InvalidArgument as e:
             if "The requested language is not supported" in str(e):
                 chat_completion = lambda: None
-                chat_completion.last = f"ERROR: {e}"
+                chat_completion.text = f"ERROR: {e}"
             else:
                 raise e
         end_time = perf_counter()
-        response = chat_completion.text
-        if response is None:
+        if len(chat_completion.parts) == 0:
             logger.debug("No response generated, returning empty string")
             response = ""
+        else:
+            response = chat_completion.text
         logger.debug(response)
         logger.success(
             f"Response generated from Gemini Pro Chat, response length: {len(response)}, "
