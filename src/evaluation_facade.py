@@ -78,9 +78,13 @@ def get_model(model: LLMs, client: Client | Pipeline = None):
             return GeminiProText()
         case LLMs.gemini_pro_chat:
             return GeminiProChat()
-        case LLMs.llama_two_seven | LLMs.llama_two_thirteen | LLMs.llama_two_seventy:
+        case (LLMs.llama_two_seven | LLMs.llama_two_thirteen | LLMs.llama_two_seventy | LLMs.pythia_14m |
+              LLMs.pythia_31m | LLMs.pythia_70m | LLMs.pythia_160m | LLMs.python_410m | LLMs.pythia_1_4b |
+              LLMs.pythia_2_8b | LLMs.pythia_6_9b | LLMs.pythia_12b):
             return HuggingFaceTextModel(client)
-        case LLMs.llama_two_chat_seven | LLMs.llama_two_chat_thirteen | LLMs.llama_two_chat_seventy:
+        case (LLMs.llama_two_chat_seven | LLMs.llama_two_chat_thirteen | LLMs.llama_two_chat_seventy |
+              LLMs.qwen_1_5_500m_chat | LLMs.qwen_1_5_1_8b_chat | LLMs.qwen_1_5_4b_chat | LLMs.qwen_1_5_7b_chat |
+              LLMs.qwen_1_5_14b_chat | LLMs.qwen_1_5_72b_chat):
             return HuggingFaceChatModel(client)
         case _:
             raise NotImplementedError(f"Model {model.value} not implemented")
