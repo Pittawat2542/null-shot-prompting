@@ -31,11 +31,16 @@ class GeminiProText(LLM):
             else:
                 raise e
         end_time = perf_counter()
-        if len(text_completion.parts) == 0:
-            logger.debug("No response generated, returning empty string")
-            response = ""
-        else:
-            response = text_completion.text
+
+        try:
+            if len(text_completion.parts) == 0:
+                logger.debug("No response generated, returning empty string")
+                response = ""
+            else:
+                response = text_completion.text
+        except ValueError as e:
+            response = f"ERROR: {e}\n{text_completion.prompt_feedback}"
+
         logger.debug(response)
         logger.success(
             f"Response generated from Gemini Pro Text, response length: {len(response)}, "

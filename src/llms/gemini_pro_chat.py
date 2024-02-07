@@ -30,11 +30,16 @@ class GeminiProChat(LLM):
             else:
                 raise e
         end_time = perf_counter()
-        if len(chat_completion.parts) == 0:
-            logger.debug("No response generated, returning empty string")
-            response = ""
-        else:
-            response = chat_completion.text
+
+        try:
+            if len(chat_completion.parts) == 0:
+                logger.debug("No response generated, returning empty string")
+                response = ""
+            else:
+                response = chat_completion.text
+        except ValueError as e:
+            response = f"ERROR: {e}\n{chat_completion.prompt_feedback}"
+
         logger.debug(response)
         logger.success(
             f"Response generated from Gemini Pro Chat, response length: {len(response)}, "
