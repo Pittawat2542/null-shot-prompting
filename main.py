@@ -79,12 +79,18 @@ def run_evaluation(models: Annotated[list[LLMs], typer.Option("--models", "-m",
             client = None
             if model is LLMs.gpt_three_point_five_turbo or model is LLMs.gpt_four_turbo:
                 client = OpenAI(max_retries=API_MAX_RETRIES, timeout=API_MAX_TIMEOUT)
-            elif model is LLMs.llama_two_seven or model is LLMs.llama_two_thirteen or model is LLMs.llama_two_seventy:
+            elif (model is LLMs.llama_two_seven or model is LLMs.llama_two_thirteen or model is LLMs.llama_two_seventy
+                  or model is LLMs.pythia_14m or model is LLMs.pythia_31m or model is LLMs.pythia_70m or model is
+                  LLMs.pythia_160m or model is LLMs.python_410m or model is LLMs.pythia_1b or model is
+                  LLMs.pythia_1_4b or model is LLMs.pythia_2_8b or model is LLMs.pythia_6_9b or model is
+                  LLMs.pythia_12b):
                 model_name = get_model_name(model)
                 client = pipeline("text-generation", model=model_name, token=os.environ.get("HF_ACCESS_TOKEN"),
                                   max_length=4096, device_map='auto')
             elif (model is LLMs.llama_two_chat_seven or model is LLMs.llama_two_chat_thirteen or
-                  model is LLMs.llama_two_chat_seventy):
+                  model is LLMs.llama_two_chat_seventy or model is LLMs.qwen_1_5_500m_chat or model is
+                  LLMs.qwen_1_5_1_8b_chat or model is LLMs.qwen_1_5_4b_chat or model is LLMs.qwen_1_5_7b_chat or model
+                  is LLMs.qwen_1_5_14b_chat or model is LLMs.qwen_1_5_72b_chat):
                 model_name = get_model_name(model)
                 client = pipeline("conversational", model=model_name, token=os.environ.get("HF_ACCESS_TOKEN"),
                                   max_length=4096, device_map='auto')

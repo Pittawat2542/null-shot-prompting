@@ -3,12 +3,15 @@ from transformers import Pipeline
 
 from src.config import GPT_THREE_POINT_FIVE_TURBO_MODEL, GPT_FOUR_TURBO_MODEL, PALM_TWO_TEXT_MODEL, PALM_TWO_CHAT_MODEL, \
     LLAMA_TWO_SEVEN_MODEL, LLAMA_TWO_THIRTEEN_MODEL, LLAMA_TWO_SEVENTY_MODEL, LLAMA_TWO_CHAT_SEVEN_MODEL, \
-    LLAMA_TWO_CHAT_THIRTEEN_MODEL, LLAMA_TWO_CHAT_SEVENTY_MODEL
+    LLAMA_TWO_CHAT_THIRTEEN_MODEL, LLAMA_TWO_CHAT_SEVENTY_MODEL, GEMINI_PRO_TEXT_MODEL, GEMINI_PRO_CHAT_MODEL, \
+    PYTHIA_14M_MODEL, PYTHIA_31M_MODEL, PYTHIA_70M_MODEL, PYTHIA_160M_MODEL, PYTHON_410M_MODEL, PYTHIA_1_4B_MODEL, \
+    PYTHIA_2_8B_MODEL, PYTHIA_6_9B_MODEL, PYTHIA_12B_MODEL, QWEN_1_5_500M_CHAT_MODEL, QWEN_1_5_1_8B_CHAT_MODEL, \
+    QWEN_1_5_4B_CHAT_MODEL, QWEN_1_5_7B_CHAT_MODEL, QWEN_1_5_14B_CHAT_MODEL, QWEN_1_5_72B_CHAT_MODEL
 from src.llms.gemini_pro_chat import GeminiProChat
 from src.llms.gemini_pro_text import GeminiProText
 from src.llms.gpt import GPT
-from src.llms.llama_two import LlamaTwo
-from src.llms.llama_two_chat import LlamaTwoChat
+from src.llms.hf_chat_model import HuggingFaceChatModel
+from src.llms.hf_text_model import HuggingFaceTextModel
 from src.llms.palm_two_chat import PaLMTwoChat
 from src.llms.palm_two_text import PaLMTwoText
 from src.models.types import LLMs, Tasks, Prompting
@@ -76,9 +79,9 @@ def get_model(model: LLMs, client: Client | Pipeline = None):
         case LLMs.gemini_pro_chat:
             return GeminiProChat()
         case LLMs.llama_two_seven | LLMs.llama_two_thirteen | LLMs.llama_two_seventy:
-            return LlamaTwo(client)
+            return HuggingFaceTextModel(client)
         case LLMs.llama_two_chat_seven | LLMs.llama_two_chat_thirteen | LLMs.llama_two_chat_seventy:
-            return LlamaTwoChat(client)
+            return HuggingFaceChatModel(client)
         case _:
             raise NotImplementedError(f"Model {model.value} not implemented")
 
@@ -89,10 +92,17 @@ def get_model_name(model: LLMs):
             return GPT_THREE_POINT_FIVE_TURBO_MODEL
         case LLMs.gpt_four_turbo:
             return GPT_FOUR_TURBO_MODEL
+
         case LLMs.palm_two_text:
             return PALM_TWO_TEXT_MODEL
         case LLMs.palm_two_chat:
             return PALM_TWO_CHAT_MODEL
+
+        case LLMs.gemini_pro_text:
+            return GEMINI_PRO_TEXT_MODEL
+        case LLMs.gemini_pro_chat:
+            return GEMINI_PRO_CHAT_MODEL
+
         case LLMs.llama_two_seven:
             return LLAMA_TWO_SEVEN_MODEL
         case LLMs.llama_two_thirteen:
@@ -105,6 +115,39 @@ def get_model_name(model: LLMs):
             return LLAMA_TWO_CHAT_THIRTEEN_MODEL
         case LLMs.llama_two_chat_seventy:
             return LLAMA_TWO_CHAT_SEVENTY_MODEL
+
+        case LLMs.pythia_14m:
+            return PYTHIA_14M_MODEL
+        case LLMs.pythia_31m:
+            return PYTHIA_31M_MODEL
+        case LLMs.pythia_70m:
+            return PYTHIA_70M_MODEL
+        case LLMs.pythia_160m:
+            return PYTHIA_160M_MODEL
+        case LLMs.python_410m:
+            return PYTHON_410M_MODEL
+        case LLMs.pythia_1_4b:
+            return PYTHIA_1_4B_MODEL
+        case LLMs.pythia_2_8b:
+            return PYTHIA_2_8B_MODEL
+        case LLMs.pythia_6_9b:
+            return PYTHIA_6_9B_MODEL
+        case LLMs.pythia_12b:
+            return PYTHIA_12B_MODEL
+
+        case LLMs.qwen_1_5_500m_chat:
+            return QWEN_1_5_500M_CHAT_MODEL
+        case LLMs.qwen_1_5_1_8b_chat:
+            return QWEN_1_5_1_8B_CHAT_MODEL
+        case LLMs.qwen_1_5_4b_chat:
+            return QWEN_1_5_4B_CHAT_MODEL
+        case LLMs.qwen_1_5_7b_chat:
+            return QWEN_1_5_7B_CHAT_MODEL
+        case LLMs.qwen_1_5_14b_chat:
+            return QWEN_1_5_14B_CHAT_MODEL
+        case LLMs.qwen_1_5_72b_chat:
+            return QWEN_1_5_72B_CHAT_MODEL
+
         case _:
             raise NotImplementedError(f"Model {model.value} not implemented")
 
