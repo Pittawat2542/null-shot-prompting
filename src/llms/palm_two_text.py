@@ -18,17 +18,17 @@ class PaLMTwoText(LLM):
         logger.info("Generating response from PaLM 2 Text")
         start_time = perf_counter()
         try:
-            chat_completion = palm.generate_text(prompt=prompt, temperature=0)
+            text_completion = palm.generate_text(prompt=prompt, temperature=0)
         except ServiceUnavailable:
-            chat_completion = palm.generate_text(prompt=prompt, temperature=0)
+            text_completion = palm.generate_text(prompt=prompt, temperature=0)
         except InvalidArgument as e:
             if "The requested language is not supported" in str(e):
-                chat_completion = lambda: None
-                chat_completion.result = f"ERROR: {e}"
+                text_completion = lambda: None
+                text_completion.result = f"ERROR: {e}"
             else:
                 raise e
         end_time = perf_counter()
-        response = chat_completion.result
+        response = text_completion.result
         if response is None:
             logger.debug("No response generated, returning empty string")
             response = ""

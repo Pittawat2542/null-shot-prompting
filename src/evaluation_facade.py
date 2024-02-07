@@ -4,6 +4,8 @@ from transformers import Pipeline
 from src.config import GPT_THREE_POINT_FIVE_TURBO_MODEL, GPT_FOUR_TURBO_MODEL, PALM_TWO_TEXT_MODEL, PALM_TWO_CHAT_MODEL, \
     LLAMA_TWO_SEVEN_MODEL, LLAMA_TWO_THIRTEEN_MODEL, LLAMA_TWO_SEVENTY_MODEL, LLAMA_TWO_CHAT_SEVEN_MODEL, \
     LLAMA_TWO_CHAT_THIRTEEN_MODEL, LLAMA_TWO_CHAT_SEVENTY_MODEL
+from src.llms.gemini_pro_chat import GeminiProChat
+from src.llms.gemini_pro_text import GeminiProText
 from src.llms.gpt import GPT
 from src.llms.llama_two import LlamaTwo
 from src.llms.llama_two_chat import LlamaTwoChat
@@ -69,6 +71,10 @@ def get_model(model: LLMs, client: Client | Pipeline = None):
             return PaLMTwoText()
         case LLMs.palm_two_chat:
             return PaLMTwoChat()
+        case LLMs.gemini_pro_text:
+            return GeminiProText()
+        case LLMs.gemini_pro_chat:
+            return GeminiProChat()
         case LLMs.llama_two_seven | LLMs.llama_two_thirteen | LLMs.llama_two_seventy:
             return LlamaTwo(client)
         case LLMs.llama_two_chat_seven | LLMs.llama_two_chat_thirteen | LLMs.llama_two_chat_seventy:

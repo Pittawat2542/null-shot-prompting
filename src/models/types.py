@@ -6,6 +6,8 @@ class LLMs(Enum):
     gpt_four_turbo = "gpt-4-turbo"
     palm_two_text = "palm-2-text"
     palm_two_chat = "palm-2-chat"
+    gemini_pro_text = "gemini-pro-text"
+    gemini_pro_chat = "gemini-pro-chat"
     llama_two_seven = "llama-2-7b"
     llama_two_thirteen = "llama-2-13b"
     llama_two_seventy = "llama-2-70b"
