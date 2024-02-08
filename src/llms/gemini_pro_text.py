@@ -40,7 +40,8 @@ class GeminiProText(LLM):
             else:
                 response = text_completion.text
         except ValueError as e:
-            response = f"ERROR: {e}\n{text_completion.prompt_feedback}"
+            logger.debug(f"Error: {e}\n{text_completion.prompt_feedback}")
+            response = ""
 
         logger.debug(response)
         logger.success(
