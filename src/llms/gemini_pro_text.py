@@ -2,6 +2,7 @@ from time import perf_counter, sleep
 
 import google.generativeai as genai
 from google.api_core.exceptions import InvalidArgument, ServiceUnavailable, InternalServerError, TooManyRequests
+from google.generativeai.types import StopCandidateException
 from loguru import logger
 
 from src.config import GEMINI_RATE_LIMIT
@@ -25,6 +26,10 @@ class GeminiProText(LLM):
             sleep(5)
             text_completion = model.generate_content(prompt,
                                                      generation_config=genai.types.GenerationConfig(temperature=0))
+        except StopCandidateException as e:
+            logger.debug(f"Error: {e}")
+            text_completion = lambda: None
+            text_completion.text = ""
         except InvalidArgument as e:
             if "The requested language is not supported" in str(e):
                 text_completion = lambda: None

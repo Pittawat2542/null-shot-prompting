@@ -2,6 +2,7 @@ from time import perf_counter, sleep
 
 import google.generativeai as genai
 from google.api_core.exceptions import InvalidArgument, ServiceUnavailable, InternalServerError, TooManyRequests
+from google.generativeai.types import StopCandidateException
 from loguru import logger
 
 from src.config import GEMINI_RATE_LIMIT
@@ -24,6 +25,10 @@ class GeminiProChat(LLM):
         except (ServiceUnavailable, InternalServerError, TooManyRequests):
             sleep(5)
             chat_completion = chat.send_message(prompt, generation_config=genai.types.GenerationConfig(temperature=0))
+        except StopCandidateException as e:
+            logger.debug(f"Error: {e}")
+            chat_completion = lambda: None
+            chat_completion.text = ""
         except InvalidArgument as e:
             if "The requested language is not supported" in str(e):
                 chat_completion = lambda: None
