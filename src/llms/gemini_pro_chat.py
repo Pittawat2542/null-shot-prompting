@@ -46,6 +46,9 @@ class GeminiProChat(LLM):
         except ValueError as e:
             logger.debug(f"Error: {e}\n{chat_completion.prompt_feedback}")
             response = ""
+        except AttributeError as e:
+            logger.debug(f"Error: {e}")
+            response = ""
 
         logger.debug(response)
         logger.success(

@@ -47,6 +47,9 @@ class GeminiProText(LLM):
         except ValueError as e:
             logger.debug(f"Error: {e}\n{text_completion.prompt_feedback}")
             response = ""
+        except AttributeError as e:
+            logger.debug(f"Error: {e}")
+            response = ""
 
         logger.debug(response)
         logger.success(
