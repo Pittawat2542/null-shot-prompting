@@ -1,7 +1,8 @@
 from time import perf_counter, sleep
 
 import google.generativeai as genai
-from google.api_core.exceptions import InvalidArgument, ServiceUnavailable, InternalServerError, TooManyRequests
+from google.api_core.exceptions import InvalidArgument, ServiceUnavailable, InternalServerError, TooManyRequests, \
+    DeadlineExceeded
 from google.generativeai.types import StopCandidateException, BlockedPromptException
 from loguru import logger
 
@@ -22,7 +23,7 @@ class GeminiProText(LLM):
         try:
             text_completion = model.generate_content(prompt,
                                                      generation_config=genai.types.GenerationConfig(temperature=0))
-        except (ServiceUnavailable, InternalServerError, TooManyRequests):
+        except (ServiceUnavailable, InternalServerError, TooManyRequests, DeadlineExceeded):
             sleep(5)
             text_completion = model.generate_content(prompt,
                                                      generation_config=genai.types.GenerationConfig(temperature=0))

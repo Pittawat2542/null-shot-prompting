@@ -1,7 +1,8 @@
 from time import perf_counter, sleep
 
 import google.generativeai as palm
-from google.api_core.exceptions import ServiceUnavailable, InvalidArgument, InternalServerError, TooManyRequests
+from google.api_core.exceptions import ServiceUnavailable, InvalidArgument, InternalServerError, TooManyRequests, \
+    DeadlineExceeded
 from loguru import logger
 
 from src.config import PALM_RATE_LIMIT
@@ -19,7 +20,7 @@ class PaLMTwoText(LLM):
         start_time = perf_counter()
         try:
             text_completion = palm.generate_text(prompt=prompt, temperature=0)
-        except (ServiceUnavailable, InternalServerError, TooManyRequests):
+        except (ServiceUnavailable, InternalServerError, TooManyRequests, DeadlineExceeded):
             text_completion = palm.generate_text(prompt=prompt, temperature=0)
         except InvalidArgument as e:
             if "The requested language is not supported" in str(e):
