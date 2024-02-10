@@ -3,7 +3,7 @@ from time import perf_counter, sleep
 import google.generativeai as genai
 from google.api_core.exceptions import InvalidArgument, ServiceUnavailable, InternalServerError, TooManyRequests, \
     DeadlineExceeded
-from google.generativeai.types import StopCandidateException, BlockedPromptException
+from google.generativeai.types.generation_types import StopCandidateException, BlockedPromptException
 from loguru import logger
 
 from src.config import GEMINI_RATE_LIMIT
