@@ -23,7 +23,7 @@ class LLMs(Enum):
     pythia_31m = "pythia-31m"
     pythia_70m = "pythia-70m"
     pythia_160m = "pythia-160m"
-    python_410m = "pythia-410m"
+    pythia_410m = "pythia-410m"
     pythia_1b = "pythia-1b"
     pythia_1_4b = "pythia-1.4b"
     pythia_2_8b = "pythia-2.8b"

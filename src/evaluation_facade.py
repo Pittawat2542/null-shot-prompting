@@ -1,12 +1,36 @@
 from openai import Client
 from transformers import Pipeline
 
-from src.config import GPT_THREE_POINT_FIVE_TURBO_MODEL, GPT_FOUR_TURBO_MODEL, PALM_TWO_TEXT_MODEL, PALM_TWO_CHAT_MODEL, \
-    LLAMA_TWO_SEVEN_MODEL, LLAMA_TWO_THIRTEEN_MODEL, LLAMA_TWO_SEVENTY_MODEL, LLAMA_TWO_CHAT_SEVEN_MODEL, \
-    LLAMA_TWO_CHAT_THIRTEEN_MODEL, LLAMA_TWO_CHAT_SEVENTY_MODEL, GEMINI_PRO_TEXT_MODEL, GEMINI_PRO_CHAT_MODEL, \
-    PYTHIA_14M_MODEL, PYTHIA_31M_MODEL, PYTHIA_70M_MODEL, PYTHIA_160M_MODEL, PYTHON_410M_MODEL, PYTHIA_1_4B_MODEL, \
-    PYTHIA_2_8B_MODEL, PYTHIA_6_9B_MODEL, PYTHIA_12B_MODEL, QWEN_1_5_500M_CHAT_MODEL, QWEN_1_5_1_8B_CHAT_MODEL, \
-    QWEN_1_5_4B_CHAT_MODEL, QWEN_1_5_7B_CHAT_MODEL, QWEN_1_5_14B_CHAT_MODEL, QWEN_1_5_72B_CHAT_MODEL
+from src.config import (
+    GPT_THREE_POINT_FIVE_TURBO_MODEL,
+    GPT_FOUR_TURBO_MODEL,
+    PALM_TWO_TEXT_MODEL,
+    PALM_TWO_CHAT_MODEL,
+    LLAMA_TWO_SEVEN_MODEL,
+    LLAMA_TWO_THIRTEEN_MODEL,
+    LLAMA_TWO_SEVENTY_MODEL,
+    LLAMA_TWO_CHAT_SEVEN_MODEL,
+    LLAMA_TWO_CHAT_THIRTEEN_MODEL,
+    LLAMA_TWO_CHAT_SEVENTY_MODEL,
+    GEMINI_PRO_TEXT_MODEL,
+    GEMINI_PRO_CHAT_MODEL,
+    PYTHIA_14M_MODEL,
+    PYTHIA_1B_MODEL,
+    PYTHIA_31M_MODEL,
+    PYTHIA_70M_MODEL,
+    PYTHIA_160M_MODEL,
+    PYTHIA_410M_MODEL,
+    PYTHIA_1_4B_MODEL,
+    PYTHIA_2_8B_MODEL,
+    PYTHIA_6_9B_MODEL,
+    PYTHIA_12B_MODEL,
+    QWEN_1_5_500M_CHAT_MODEL,
+    QWEN_1_5_1_8B_CHAT_MODEL,
+    QWEN_1_5_4B_CHAT_MODEL,
+    QWEN_1_5_7B_CHAT_MODEL,
+    QWEN_1_5_14B_CHAT_MODEL,
+    QWEN_1_5_72B_CHAT_MODEL,
+)
 from src.llms.gemini_pro_chat import GeminiProChat
 from src.llms.gemini_pro_text import GeminiProText
 from src.llms.gpt import GPT
@@ -78,13 +102,33 @@ def get_model(model: LLMs, client: Client | Pipeline = None):
             return GeminiProText()
         case LLMs.gemini_pro_chat:
             return GeminiProChat()
-        case (LLMs.llama_two_seven | LLMs.llama_two_thirteen | LLMs.llama_two_seventy | LLMs.pythia_14m |
-              LLMs.pythia_31m | LLMs.pythia_70m | LLMs.pythia_160m | LLMs.python_410m | LLMs.pythia_1b |
-              LLMs.pythia_1_4b | LLMs.pythia_2_8b | LLMs.pythia_6_9b | LLMs.pythia_12b):
+        case (
+            LLMs.llama_two_seven
+            | LLMs.llama_two_thirteen
+            | LLMs.llama_two_seventy
+            | LLMs.pythia_14m
+            | LLMs.pythia_31m
+            | LLMs.pythia_70m
+            | LLMs.pythia_160m
+            | LLMs.pythia_410m
+            | LLMs.pythia_1b
+            | LLMs.pythia_1_4b
+            | LLMs.pythia_2_8b
+            | LLMs.pythia_6_9b
+            | LLMs.pythia_12b
+        ):
             return HuggingFaceTextModel(client)
-        case (LLMs.llama_two_chat_seven | LLMs.llama_two_chat_thirteen | LLMs.llama_two_chat_seventy |
-              LLMs.qwen_1_5_500m_chat | LLMs.qwen_1_5_1_8b_chat | LLMs.qwen_1_5_4b_chat | LLMs.qwen_1_5_7b_chat |
-              LLMs.qwen_1_5_14b_chat | LLMs.qwen_1_5_72b_chat):
+        case (
+            LLMs.llama_two_chat_seven
+            | LLMs.llama_two_chat_thirteen
+            | LLMs.llama_two_chat_seventy
+            | LLMs.qwen_1_5_500m_chat
+            | LLMs.qwen_1_5_1_8b_chat
+            | LLMs.qwen_1_5_4b_chat
+            | LLMs.qwen_1_5_7b_chat
+            | LLMs.qwen_1_5_14b_chat
+            | LLMs.qwen_1_5_72b_chat
+        ):
             return HuggingFaceChatModel(client)
         case _:
             raise NotImplementedError(f"Model {model.value} not implemented")
@@ -128,8 +172,10 @@ def get_model_name(model: LLMs):
             return PYTHIA_70M_MODEL
         case LLMs.pythia_160m:
             return PYTHIA_160M_MODEL
-        case LLMs.python_410m:
-            return PYTHON_410M_MODEL
+        case LLMs.pythia_410m:
+            return PYTHIA_410M_MODEL
+        case LLMs.pythia_1b:
+            return PYTHIA_1B_MODEL
         case LLMs.pythia_1_4b:
             return PYTHIA_1_4B_MODEL
         case LLMs.pythia_2_8b:
