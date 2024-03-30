@@ -25,7 +25,7 @@ class Claude(LLM):
                 max_tokens=4096
             )
             end_time = perf_counter()
-            response = chat_completion.content
+            response = chat_completion.content[0].text
         except (APITimeoutError, APIConnectionError, APIStatusError) as e:
             print(e)
             raise e
