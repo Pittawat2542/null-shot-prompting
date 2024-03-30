@@ -6,6 +6,7 @@ from pathlib import Path
 
 import google.generativeai as palm
 import typer
+from anthropic import Anthropic
 from dotenv import load_dotenv
 from loguru import logger
 from openai import OpenAI
@@ -22,31 +23,31 @@ app = typer.Typer()
 
 @app.command()
 def run_evaluation(
-    models: Annotated[
-        list[LLMs], typer.Option("--models", "-m", help="Models to perform tasks")
-    ],
-    tasks: Annotated[
-        list[Tasks], typer.Option("--tasks", "-t", help="Tasks to perform")
-    ],
-    prompting: Annotated[
-        list[Prompting],
-        typer.Option("--prompting.py", "-p", help="Prompting technique to use"),
-    ],
-    output_path: Annotated[
-        str, typer.Option("--results-path", "-r", help="Path to store results")
-    ] = "results",
-    evaluate_only: Annotated[
-        bool,
-        typer.Option(
-            "--evaluate-only", "-e", help="Evaluate only, do not run inference"
-        ),
-    ] = False,
-    existing_result_root_path: Annotated[
-        str,
-        typer.Option(
-            "--existing-result-root-path", "-e-r", help="Root path to existing results"
-        ),
-    ] = "results",
+        models: Annotated[
+            list[LLMs], typer.Option("--models", "-m", help="Models to perform tasks")
+        ],
+        tasks: Annotated[
+            list[Tasks], typer.Option("--tasks", "-t", help="Tasks to perform")
+        ],
+        prompting: Annotated[
+            list[Prompting],
+            typer.Option("--prompting.py", "-p", help="Prompting technique to use"),
+        ],
+        output_path: Annotated[
+            str, typer.Option("--results-path", "-r", help="Path to store results")
+        ] = "results",
+        evaluate_only: Annotated[
+            bool,
+            typer.Option(
+                "--evaluate-only", "-e", help="Evaluate only, do not run inference"
+            ),
+        ] = False,
+        existing_result_root_path: Annotated[
+            str,
+            typer.Option(
+                "--existing-result-root-path", "-e-r", help="Root path to existing results"
+            ),
+        ] = "results",
 ):
     if len(models) > 1 and LLMs.all in models:
         raise ValueError("Cannot specify multiple models and 'all' at the same time")
@@ -93,20 +94,22 @@ def run_evaluation(
             client = None
             if model is LLMs.gpt_three_point_five_turbo or model is LLMs.gpt_four_turbo:
                 client = OpenAI(max_retries=API_MAX_RETRIES, timeout=API_MAX_TIMEOUT)
+            elif model is LLMs.claude_2_1 or model is LLMs.claude_3_haiku or model is LLMs.claude_3_sonnet or model is LLMs.claude_3_opus:
+                client = Anthropic(max_retries=API_MAX_RETRIES, timeout=API_MAX_TIMEOUT)
             elif (
-                model is LLMs.llama_two_seven
-                or model is LLMs.llama_two_thirteen
-                or model is LLMs.llama_two_seventy
-                or model is LLMs.pythia_14m
-                or model is LLMs.pythia_31m
-                or model is LLMs.pythia_70m
-                or model is LLMs.pythia_160m
-                or model is LLMs.pythia_410m
-                or model is LLMs.pythia_1b
-                or model is LLMs.pythia_1_4b
-                or model is LLMs.pythia_2_8b
-                or model is LLMs.pythia_6_9b
-                or model is LLMs.pythia_12b
+                    model is LLMs.llama_two_seven
+                    or model is LLMs.llama_two_thirteen
+                    or model is LLMs.llama_two_seventy
+                    or model is LLMs.pythia_14m
+                    or model is LLMs.pythia_31m
+                    or model is LLMs.pythia_70m
+                    or model is LLMs.pythia_160m
+                    or model is LLMs.pythia_410m
+                    or model is LLMs.pythia_1b
+                    or model is LLMs.pythia_1_4b
+                    or model is LLMs.pythia_2_8b
+                    or model is LLMs.pythia_6_9b
+                    or model is LLMs.pythia_12b
             ):
                 model_name = get_model_name(model)
                 client = pipeline(
@@ -117,15 +120,15 @@ def run_evaluation(
                     device_map="auto",
                 )
             elif (
-                model is LLMs.llama_two_chat_seven
-                or model is LLMs.llama_two_chat_thirteen
-                or model is LLMs.llama_two_chat_seventy
-                or model is LLMs.qwen_1_5_500m_chat
-                or model is LLMs.qwen_1_5_1_8b_chat
-                or model is LLMs.qwen_1_5_4b_chat
-                or model is LLMs.qwen_1_5_7b_chat
-                or model is LLMs.qwen_1_5_14b_chat
-                or model is LLMs.qwen_1_5_72b_chat
+                    model is LLMs.llama_two_chat_seven
+                    or model is LLMs.llama_two_chat_thirteen
+                    or model is LLMs.llama_two_chat_seventy
+                    or model is LLMs.qwen_1_5_500m_chat
+                    or model is LLMs.qwen_1_5_1_8b_chat
+                    or model is LLMs.qwen_1_5_4b_chat
+                    or model is LLMs.qwen_1_5_7b_chat
+                    or model is LLMs.qwen_1_5_14b_chat
+                    or model is LLMs.qwen_1_5_72b_chat
             ):
                 model_name = get_model_name(model)
                 client = pipeline(
@@ -146,13 +149,13 @@ def run_evaluation(
                 )
                 selected_prompting = get_prompting(pe_technique)
                 current_path = (
-                    results_path / model.value / task.value / pe_technique.value
+                        results_path / model.value / task.value / pe_technique.value
                 )
 
                 few_shot_samples = ""
                 if (
-                    pe_technique is Prompting.few_shot
-                    or pe_technique is Prompting.chain_of_thought
+                        pe_technique is Prompting.few_shot
+                        or pe_technique is Prompting.chain_of_thought
                 ):
                     few_shot_samples = selected_task.get_few_shot_samples()
 
@@ -203,11 +206,11 @@ def run_evaluation(
                         )
                     else:
                         existing_result_file_path = (
-                            Path(existing_result_root_path)
-                            / model.value
-                            / task.value
-                            / pe_technique.value
-                            / f"{i}.json"
+                                Path(existing_result_root_path)
+                                / model.value
+                                / task.value
+                                / pe_technique.value
+                                / f"{i}.json"
                         )
                         result_obj = json.loads(existing_result_file_path.read_text())
                         response = result_obj["response"]

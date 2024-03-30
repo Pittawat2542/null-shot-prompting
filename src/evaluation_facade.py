@@ -1,3 +1,4 @@
+from anthropic import Anthropic
 from openai import Client
 from transformers import Pipeline
 
@@ -29,8 +30,9 @@ from src.config import (
     QWEN_1_5_4B_CHAT_MODEL,
     QWEN_1_5_7B_CHAT_MODEL,
     QWEN_1_5_14B_CHAT_MODEL,
-    QWEN_1_5_72B_CHAT_MODEL,
+    QWEN_1_5_72B_CHAT_MODEL, CLAUDE_2_1_MODEL, CLAUDE_3_HAIKU_MODEL, CLAUDE_3_SONNET_MODEL, CLAUDE_3_OPUS_MODEL,
 )
+from src.llms.claude_model import Claude
 from src.llms.gemini_pro_chat import GeminiProChat
 from src.llms.gemini_pro_text import GeminiProText
 from src.llms.gpt import GPT
@@ -90,7 +92,7 @@ def get_prompting(prompting: Prompting):
             raise NotImplementedError(f"Prompting {prompting.value} not implemented")
 
 
-def get_model(model: LLMs, client: Client | Pipeline = None):
+def get_model(model: LLMs, client: Client | Pipeline | Anthropic = None):
     match model:
         case LLMs.gpt_three_point_five_turbo | LLMs.gpt_four_turbo:
             return GPT(client)
@@ -102,32 +104,34 @@ def get_model(model: LLMs, client: Client | Pipeline = None):
             return GeminiProText()
         case LLMs.gemini_pro_chat:
             return GeminiProChat()
+        case LLMs.claude_2_1 | LLMs.claude_3_haiku | LLMs.claude_3_sonnet | LLMs.claude_3_opus:
+            return Claude(client)
         case (
-            LLMs.llama_two_seven
-            | LLMs.llama_two_thirteen
-            | LLMs.llama_two_seventy
-            | LLMs.pythia_14m
-            | LLMs.pythia_31m
-            | LLMs.pythia_70m
-            | LLMs.pythia_160m
-            | LLMs.pythia_410m
-            | LLMs.pythia_1b
-            | LLMs.pythia_1_4b
-            | LLMs.pythia_2_8b
-            | LLMs.pythia_6_9b
-            | LLMs.pythia_12b
+        LLMs.llama_two_seven
+        | LLMs.llama_two_thirteen
+        | LLMs.llama_two_seventy
+        | LLMs.pythia_14m
+        | LLMs.pythia_31m
+        | LLMs.pythia_70m
+        | LLMs.pythia_160m
+        | LLMs.pythia_410m
+        | LLMs.pythia_1b
+        | LLMs.pythia_1_4b
+        | LLMs.pythia_2_8b
+        | LLMs.pythia_6_9b
+        | LLMs.pythia_12b
         ):
             return HuggingFaceTextModel(client)
         case (
-            LLMs.llama_two_chat_seven
-            | LLMs.llama_two_chat_thirteen
-            | LLMs.llama_two_chat_seventy
-            | LLMs.qwen_1_5_500m_chat
-            | LLMs.qwen_1_5_1_8b_chat
-            | LLMs.qwen_1_5_4b_chat
-            | LLMs.qwen_1_5_7b_chat
-            | LLMs.qwen_1_5_14b_chat
-            | LLMs.qwen_1_5_72b_chat
+        LLMs.llama_two_chat_seven
+        | LLMs.llama_two_chat_thirteen
+        | LLMs.llama_two_chat_seventy
+        | LLMs.qwen_1_5_500m_chat
+        | LLMs.qwen_1_5_1_8b_chat
+        | LLMs.qwen_1_5_4b_chat
+        | LLMs.qwen_1_5_7b_chat
+        | LLMs.qwen_1_5_14b_chat
+        | LLMs.qwen_1_5_72b_chat
         ):
             return HuggingFaceChatModel(client)
         case _:
@@ -150,6 +154,15 @@ def get_model_name(model: LLMs):
             return GEMINI_PRO_TEXT_MODEL
         case LLMs.gemini_pro_chat:
             return GEMINI_PRO_CHAT_MODEL
+
+        case LLMs.claude_2_1:
+            return CLAUDE_2_1_MODEL
+        case LLMs.claude_3_haiku:
+            return CLAUDE_3_HAIKU_MODEL
+        case LLMs.claude_3_sonnet:
+            return CLAUDE_3_SONNET_MODEL
+        case LLMs.claude_3_opus:
+            return CLAUDE_3_OPUS_MODEL
 
         case LLMs.llama_two_seven:
             return LLAMA_TWO_SEVEN_MODEL

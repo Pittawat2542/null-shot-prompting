@@ -11,6 +11,11 @@ class LLMs(Enum):
     gemini_pro_text = "gemini-pro-text"
     gemini_pro_chat = "gemini-pro-chat"
 
+    claude_2_1 = "claude-2.1"
+    claude_3_haiku = "claude-3-haiku"
+    claude_3_sonnet = "claude-3-sonnet"
+    claude_3_opus = "claude-3-opus"
+
     llama_two_seven = "llama-2-7b"
     llama_two_thirteen = "llama-2-13b"
     llama_two_seventy = "llama-2-70b"
