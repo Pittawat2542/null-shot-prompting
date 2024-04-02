@@ -67,6 +67,11 @@ class Tasks(Enum):
     AQuA = "aqua"
     GSM8K = "gsm8k"
     SVAMP = "svamp"
+    # Hallucination detection
+    HaluEvalGeneral = "halueval-general"
+    HaluEvalDialogue = "halueval-dialogue"
+    HaluEvalQA = "halueval-qa"
+    HaluEvalSummarization = "halueval-summarization"
 
 
 class Prompting(Enum):

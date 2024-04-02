@@ -55,6 +55,10 @@ from src.tasks.anli import ANLI
 from src.tasks.aqua import AQuA
 from src.tasks.commonsense_qa import CommonsenseQA
 from src.tasks.gsm8k import GSM8K
+from src.tasks.halueval_dialogue import HaluEvalDialogue
+from src.tasks.halueval_general import HaluEvalGeneral
+from src.tasks.halueval_qa import HaluEvalQA
+from src.tasks.halueval_summarization import HaluEvalSummarization
 from src.tasks.open_book_qa import OpenBookQA
 from src.tasks.race_h import RACEHigh
 from src.tasks.race_m import RACEMiddle
@@ -243,5 +247,13 @@ def get_task(task: Tasks):
             return GSM8K
         case Tasks.SVAMP:
             return SVAMP
+        case Tasks.HaluEvalGeneral:
+            return HaluEvalGeneral
+        case Tasks.HaluEvalDialogue:
+            return HaluEvalDialogue
+        case Tasks.HaluEvalQA:
+            return HaluEvalQA
+        case Tasks.HaluEvalSummarization:
+            return HaluEvalSummarization
         case _:
             raise NotImplementedError(f"Task {task.value} not implemented")
