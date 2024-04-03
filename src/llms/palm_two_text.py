@@ -21,6 +21,7 @@ class PaLMTwoText(LLM):
         try:
             text_completion = palm.generate_text(prompt=prompt, temperature=0)
         except (ServiceUnavailable, InternalServerError, TooManyRequests, DeadlineExceeded):
+            sleep(5)
             text_completion = palm.generate_text(prompt=prompt, temperature=0)
         except InvalidArgument as e:
             if "The requested language is not supported" in str(e):

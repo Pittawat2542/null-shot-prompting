@@ -21,6 +21,7 @@ class PaLMTwoChat(LLM):
         try:
             chat_completion = palm.chat(prompt=prompt, temperature=0)
         except (ServiceUnavailable, InternalServerError, TooManyRequests, DeadlineExceeded):
+            sleep(5)
             chat_completion = palm.chat(prompt=prompt, temperature=0)
         except InvalidArgument as e:
             if "The requested language is not supported" in str(e):
