@@ -3,7 +3,8 @@ from time import perf_counter, sleep
 from anthropic import APITimeoutError, APIConnectionError, APIStatusError, Anthropic
 from loguru import logger
 
-from src.config import CLAUDE_RATE_LIMIT
+from src.config import CLAUDE_RATE_LIMIT, CLAUDE_2_1_MODEL, CLAUDE_3_HAIKU_MODEL, CLAUDE_3_SONNET_MODEL, \
+    CLAUDE_3_OPUS_MODEL
 from src.llms.llm import LLM
 
 
@@ -15,11 +16,24 @@ class Claude(LLM):
         self.client = client
 
     def inference(self, prompt: str, model_name="") -> (str, dict):
-        logger.info(f"Generating response from {model_name}")
+        model = ""
+        match model_name:
+            case "claude-2.1":
+                model = CLAUDE_2_1_MODEL
+            case "claude-3-haiku":
+                model = CLAUDE_3_HAIKU_MODEL
+            case "claude-3-sonnet":
+                model = CLAUDE_3_SONNET_MODEL
+            case "claude-3-opus":
+                model = CLAUDE_3_OPUS_MODEL
+            case _:
+                raise NotImplementedError(f"Model {model_name} not implemented")
+
+        logger.info(f"Generating response from {model}")
         start_time = perf_counter()
         try:
             chat_completion = self.client.messages.create(
-                model=model_name,
+                model=model,
                 messages=[{"role": "user", "content": prompt}],
                 temperature=0.0,
                 max_tokens=4096
