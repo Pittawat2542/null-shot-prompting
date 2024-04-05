@@ -40,6 +40,7 @@ class LLMs(Enum):
     qwen_1_5_4b_chat = "qwen-1.5-4b-chat"
     qwen_1_5_7b_chat = "qwen-1.5-7b-chat"
     qwen_1_5_14b_chat = "qwen-1.5-14b-chat"
+    qwen_1_5_32b_chat = "qwen-1.5-32b-chat"
     qwen_1_5_72b_chat = "qwen-1.5-72b-chat"
 
     all = "all"

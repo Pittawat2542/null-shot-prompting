@@ -31,6 +31,7 @@ from src.config import (
     QWEN_1_5_7B_CHAT_MODEL,
     QWEN_1_5_14B_CHAT_MODEL,
     QWEN_1_5_72B_CHAT_MODEL, CLAUDE_2_1_MODEL, CLAUDE_3_HAIKU_MODEL, CLAUDE_3_SONNET_MODEL, CLAUDE_3_OPUS_MODEL,
+    QWEN_1_5_32B_CHAT_MODEL,
 )
 from src.llms.claude_model import Claude
 from src.llms.gemini_pro_chat import GeminiProChat
@@ -212,6 +213,8 @@ def get_model_name(model: LLMs):
             return QWEN_1_5_7B_CHAT_MODEL
         case LLMs.qwen_1_5_14b_chat:
             return QWEN_1_5_14B_CHAT_MODEL
+        case LLMs.qwen_1_5_32b_chat:
+            return QWEN_1_5_32B_CHAT_MODEL
         case LLMs.qwen_1_5_72b_chat:
             return QWEN_1_5_72B_CHAT_MODEL
 
