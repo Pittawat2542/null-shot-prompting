@@ -42,9 +42,7 @@ class Claude(LLM):
             response = chat_completion.content[0].text
         except BadRequestError as e:
             logger.debug(f"Error: {e}")
-            chat_completion = lambda: None
-            chat_completion.content = [lambda: None]
-            chat_completion.content[0].text = f"ERROR: {e}"
+            response = f"ERROR: {e}"
         except (APITimeoutError, APIConnectionError, APIStatusError) as e:
             print(e)
             raise e
