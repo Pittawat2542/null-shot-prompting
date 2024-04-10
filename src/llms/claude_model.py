@@ -1,6 +1,6 @@
 from time import perf_counter, sleep
 
-from anthropic import APITimeoutError, APIConnectionError, APIStatusError, Anthropic
+from anthropic import APITimeoutError, APIConnectionError, APIStatusError, Anthropic, BadRequestError
 from loguru import logger
 
 from src.config import CLAUDE_RATE_LIMIT, CLAUDE_2_1_MODEL, CLAUDE_3_HAIKU_MODEL, CLAUDE_3_SONNET_MODEL, \
@@ -43,6 +43,11 @@ class Claude(LLM):
         except (APITimeoutError, APIConnectionError, APIStatusError) as e:
             print(e)
             raise e
+        except BadRequestError as e:
+            logger.debug(f"Error: {e}")
+            chat_completion = lambda: None
+            chat_completion.content = [lambda: None]
+            chat_completion.content[0].text = f"ERROR: {e}"
         except Exception as e:
             end_time = perf_counter()
             response = f"ERROR: {e}"
