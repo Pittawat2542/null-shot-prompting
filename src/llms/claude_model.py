@@ -40,14 +40,14 @@ class Claude(LLM):
             )
             end_time = perf_counter()
             response = chat_completion.content[0].text
-        except (APITimeoutError, APIConnectionError, APIStatusError) as e:
-            print(e)
-            raise e
         except BadRequestError as e:
             logger.debug(f"Error: {e}")
             chat_completion = lambda: None
             chat_completion.content = [lambda: None]
             chat_completion.content[0].text = f"ERROR: {e}"
+        except (APITimeoutError, APIConnectionError, APIStatusError) as e:
+            print(e)
+            raise e
         except Exception as e:
             end_time = perf_counter()
             response = f"ERROR: {e}"
