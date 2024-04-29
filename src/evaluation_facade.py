@@ -60,6 +60,13 @@ from src.tasks.halueval_dialogue import HaluEvalDialogue
 from src.tasks.halueval_general import HaluEvalGeneral
 from src.tasks.halueval_qa import HaluEvalQA
 from src.tasks.halueval_summarization import HaluEvalSummarization
+from src.tasks.math_algebra import MATHAlgebra
+from src.tasks.math_counting_and_probability import MATHCountingAndProbability
+from src.tasks.math_geometry import MATHGeometry
+from src.tasks.math_intermediate_algebra import MATHIntermediateAlgebra
+from src.tasks.math_number_theory import MATHNumberTheory
+from src.tasks.math_prealgebra import MATHPreAlgebra
+from src.tasks.math_precalculus import MATHPreCalculus
 from src.tasks.open_book_qa import OpenBookQA
 from src.tasks.race_h import RACEHigh
 from src.tasks.race_m import RACEMiddle
@@ -258,5 +265,19 @@ def get_task(task: Tasks):
             return HaluEvalQA
         case Tasks.HaluEvalSummarization:
             return HaluEvalSummarization
+        case Tasks.MATHAlgebra:
+            return MATHAlgebra
+        case Tasks.MATHCountingAndProbability:
+            return MATHCountingAndProbability
+        case Tasks.MATHGeometry:
+            return MATHGeometry
+        case Tasks.MATHNumberTheory:
+            return MATHNumberTheory
+        case Tasks.MATHIntermediateAlgebra:
+            return MATHIntermediateAlgebra
+        case Tasks.MATHPreAlgebra:
+            return MATHPreAlgebra
+        case Tasks.MATHPreCalculus:
+            return MATHPreCalculus
         case _:
             raise NotImplementedError(f"Task {task.value} not implemented")

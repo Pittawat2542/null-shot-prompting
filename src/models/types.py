@@ -73,6 +73,14 @@ class Tasks(Enum):
     HaluEvalDialogue = "halueval-dialogue"
     HaluEvalQA = "halueval-qa"
     HaluEvalSummarization = "halueval-summarization"
+    # MATH
+    MATHAlgebra = "math-algebra"
+    MATHCountingAndProbability = "math-count-prob"
+    MATHGeometry = "math-geometry"
+    MATHNumberTheory = "math-number"
+    MATHIntermediateAlgebra = "math-int-algebra"
+    MATHPreAlgebra = "math-pre-algebra"
+    MATHPreCalculus = "math-pre-calc"
 
 
 class Prompting(Enum):
