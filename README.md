@@ -2,6 +2,8 @@
 
 This repository contains the code for the paper "Null-Shot Prompting: Rethinking Prompting Large Language Models With Hallucination" accepted at [EMNLP 2024 (Main, long)](https://2024.emnlp.org/program/accepted_main_conference/).
 
+For data and analysis code, please refer to the [data repository](https://github.com/Pittawat2542/null-shot-results).
+
 ## Authors
 Pittawat Taveekitworachai, Febri Abdullah, and Ruck Thawonmas
 
