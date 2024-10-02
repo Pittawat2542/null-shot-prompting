@@ -32,7 +32,7 @@ This paper investigates an interesting phenomenon where we observe performance i
 ## Installation and Usage
 0. Create a virtual environment (if needed):
 ```bash
-conda create -n null-shot python=3.12
+conda create -n null-shot python=3.11
 ```
 and activate it:
 ```bash
